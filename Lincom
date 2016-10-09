@@ -6,10 +6,14 @@ git init Mytest
 cd Mytest
 gedit README
 git add README
-git add ./  adds every file in the directory
+git add ./  #adds every file in the directory
 git commit -m "some_message"
 git remote add origin https://github.com/user_name/Mytest.git
 git push origin master
+git log #shows the commits and the msg associated with them
+git log --stat #shows more info abou which file has been changed, how many 
+				things has been added and deleted
+git diff "id1" "id2" #compares between two version by id copies from the git log
 
 vi "filename"
 i - write mode
