@@ -1,0 +1,27 @@
+Git Commands
+sudo apt-get install git
+git config --global user.name "user_name"
+git config --global user.email "email_id"
+git init Mytest
+cd Mytest
+gedit README
+git add README
+git commit -m "some_message"
+git remote add origin https://github.com/user_name/Mytest.git
+git push origin master
+
+vi "filename"
+i - write mode
+esp + :wq - save
+dd - deletes line
+x - delete char
+a - text after crusor
+A - test after the end of the line
+
+//show the differences between 2 files
+diff -u "old file" "new file"
+
+//creating link to terminal
+sudo ln -s /opt/sublime/sublime_text /usr/bin/subl 
+
+
