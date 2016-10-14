@@ -2,8 +2,10 @@ Git Commands
 sudo apt-get install git
 git config --global user.name "user_name"
 git config --global user.email "email_id"
-git init Mytest
+git init #makes the current folder a repository
+git init Mytest #creates a folder Mytest as a repository
 cd Mytest
+git status #shows which files have been changed
 gedit README
 git add README
 git add ./  #adds every file in the directory
@@ -11,9 +13,20 @@ git commit -m "some_message"
 git remote add origin https://github.com/user_name/Mytest.git
 git push origin master
 git log #shows the commits and the msg associated with them
-git log --stat #shows more info abou which file has been changed, how many 
+git log --stat #shows more info about which file has been changed, how many 
 				things has been added and deleted
-git diff "id1" "id2" #compares between two version by id copies from the git log
+q #exit git log
+git diff "commit id1" "commit id2" #compares between two version by id copies  										from the git log
+git clone "addres.git" #clones an existing repository, includes the commit 
+						history.
+git config --global color.ui auto #during git diff, paints the lines which were added in green and the lines which were deleted in red.
+git checkout "commit id" #restores the files from that commit
+
+working directory - the repository we made by using init on some folder
+staging area - the files which we used "add" on and which will be commited when 
+				we use "comit"
+
+
 
 vi "filename"
 i - write mode
@@ -22,11 +35,15 @@ dd - deletes line
 x - delete char
 a - text after crusor
 A - test after the end of the line
+ctrl + alt + c #copy
+ctrl + alt + v #paste
 
-//show the differences between 2 files
-diff -u "old file" "new file"
-
-//creating link to terminal
-sudo ln -s /opt/sublime/sublime_text /usr/bin/subl 
+gksudo "command" - run command in power user mode
+diff -u "old file" "new file" #show the differences between 2 files
+gnome-open "path" #opens gui folder from the terminal
+ls -a #shows the files and folders in the curr folder (including hidden ones)
+touch "filename" # presents the content of a file or creates it if it doesn't 
+					exist
+sudo ln -s /opt/sublime/sublime_text /usr/bin/subl #creating link to terminal
 
 
