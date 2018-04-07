@@ -1,0 +1,138 @@
+Git Commands
+sudo apt-get install git
+git config --global user.name "user_name"
+git config --global user.email "email_id"
+git init #makes the current folder a repository
+git init Mytest #creates a folder Mytest as a repository
+cd Mytest
+git status #shows which files have been changed
+gedit README
+git add README
+git add ./  #adds every file in the directory
+git commit -m "some_message"
+git remote add origin https://github.com/user_name/Mytest.git #adds a remote
+				 git hub repository and choose the name for it 
+				 (for example: origin)
+git remote #shows the remote reps names
+git remote -v #shows the remote reps names and their addresses
+git push origin master #choose the remote rep name to push into (1st arg) and 
+						the branch to push from (2nd arg) and transfer the commits which haven't been transfered yet
+git pull origin master #choose the remote rep name to pull from (1st arg) and 
+						the branch in the remote rep to pull from (2nd arg) and transfer the commits which haven't been transfered yet to the local branch which is checked out
+git fetch origin master #same as pull but updated the branch origin/master on
+						the local rep and not the branch master. so you have to manually merge them. (pull does it auto)
+git log #shows the commits and the msg associated with them
+git log --stat #shows more info about which file has been changed, how many 
+				things has been added and deleted
+				q #exit git log
+git log --graph --oneline master <branch name> #run this command when you are
+												   checked out on another branch.
+													shows what was in master before the branch, what the was added in the branch and what was added in the master after the branch had been created
+git diff "commit id1" "commit id2" #compares between two version by id copies  										from the git log
+git diff #show the differences between the working space and the staging area
+			when make changes in the working place it shows me what I've changed from what was last staged
+
+git diff --staged #shows the differences between the staging area and the 
+					repository (the things that have been pushed)
+git clone "addres.git" #clones an existing repository, includes the commit 
+						history. when I want to change things I got from a remote repository while leaving the remote version unchanged. I can clone it and connect it to a new remote rep of my own.
+						We can clone a local rep to other folder on the computer
+						or clone a remote rep to our local rep and then it connects the local rep to the remote which is called origin by default
+git config --global color.ui auto #during git diff, paints the lines which were 
+										added in green and the lines which were deleted in red.
+git checkout "commit id" #restores the files from that commit
+git reset --hard #deletes the changes that are different from the repository
+
+git branch #shows on which branch you're working and all the other branches
+git branch br1 #creates a new branch called br1 (it has all the files which 
+				exist in the master branch), can be created after checking out a previous commit so the branch will continue from that point.
+git checkout br1 #transfer to branch br1 
+git checkout -b br1 #shortcut combining the 2 previous commands.
+
+git merge master br1 #if master is checked out, merges br1 into master (adds the
+						 changes each of them made and deletes what one of them deleted), in git log the commits will be ordered  by the time stamp.
+git show <commit id> #shows the differenes between a commit and its parent, 
+					  because it's hard to find the parent id after a merge.
+git branch -d br1 #deletes the branch label br1, the commits made by it had been 
+					merged already so they wouldn't get lost.
+
+git checkout br2
+git merge master br2 # merges master into br2
+
+
+
+working directory - the repository we made by using init on some folder
+staging area - the files which we used "add" on and which will be commited when 
+				we use "comit"
+branch - used to create other versions or changes that we want to do and move 
+		from the main program on master to this version fastly.
+		make new feature on a new branch, fix a bug on a new branch
+remote branch - a branch that was not created by me
+every commit knows its "parent" and that's how git log trace commits until it reaches a commit without a parent. and that's why when you checkout a commit that doesn't have some commits on its way to the root, they can be lost unless you got their commit id
+
+Head - current commit you checked out
+detached head - when checking out a commit and changing things in it without creating a new branch, this change doesn't affect anything because it is not reachable from the other branches and will get lost once we get back to a branch.
+solution: after checking out a commit, create a new branch and then make changes.
+
+conflics in merging - (in the file with the conflicts)
+<<<<<<Head to |||| is the part I changed in the checked out branch. 
+|||| to ===== is how the part was before I changed it in my branch.
+===== to >>>>>master is how the part is in master (the branch I want to check into mine)
+You fix it manually and then add the file and commit
+
+Forking
+-------
+If you want to change someone's github's rep without making changes in his version (or don't have permission to make changes in someone's remote rep) 
+you go into his github's branch you want and click Fork. This option clones his branch to your gitHub and keeps link to the origin. Then it can be cloned to your local rep from your remote rep so it can be changed from the local rep.
+
+Collaboration conflicts - when you clone or add a remote git save a branch pointing to the last commit made when you cloned. It is called "origin/master" (origin is the name of the remote rep, default by clone. or another name if you added it in remote add. master is the name of the branch in the remote rep you cloned)
+if you add a local commit without push, master position will be updated to the last local commit but origin/master won't be updated. so git status will say we are 1 commit ahead. (distance between master and origin/master). origin/master will be updated when we pull. if we fetch, origin/master and master will be updated to the last commit.
+but when there is a conflict (new local commit which hasn't been pushed and new remote commit which hasn't been pulled) and then we pull, origin/master will be updated to the last remote commit but master won't be updated so it'll look like 2 separate branched and git status will say it is unsynced. (divereged)
+
+solution: we checkout master and then merge master and origin/master. after that we deal with the merge conflict as usual.
+
+git pull = git fetch + git merge. so if we would have run git pull it would have merged automatically and write about the merge conflict
+
+Fast forward merge (what pull does) - if b is merged into a and a is ancestors of b, fast forward merge can be used because b contains a so a just needs to be updated to the location of b
+
+Pull request - when you want to share a change before changing master, you create a new branch and make the changes on this branch. Then, you push this branch and click in git hun on pull request option and choose the remote rep and branch you want to merge into (base fork: myusername/master). After that a request is sent to the other people in the project to review the changes you made.
+
+Collaboration and collision - when you authorize someone's changes and then can't merge your changes because git hub notifies there will be a collision.
+you pull from the remote master, make fixes on your branch, merge the master you pulled into your branch and then push. After that the merge in the pull request in git hub will be green and it can be merged to the master and then delete the branch you used for it.
+after updating the pull request you need to leave a comment so git hub will send msg to the other people about the update.
+
+definition of a default text editor (sublime)
+------------------------------------------
+git config --global core.editor "subl -n -w"
+git config --global push.default upstream
+git config --global merge.conflictstyle diff3
+
+commit msg types
+    feat: a new feature
+    fix: a bug fix
+    docs: changes to documentation
+    style: formatting, missing semi colons, etc; no code change
+    refactor: refactoring production code
+    test: adding tests, refactoring test; no production code change
+    chore: updating build tasks, package manager configs, etc; no production code change
+
+
+vi "filename"
+i - write mode
+esp + :wq - save
+dd - deletes line
+x - delete char
+a - text after crusor
+A - test after the end of the line
+ctrl + alt + c #copy
+ctrl + alt + v #paste
+
+gksudo "command" - run command in power user mode
+diff -u "old file" "new file" #show the differences between 2 files
+gnome-open "path" #opens gui folder from the terminal
+ls -a #shows the files and folders in the curr folder (including hidden ones)
+touch "filename" # presents the content of a file or creates it if it doesn't 
+					exist
+sudo ln -s /opt/sublime/sublime_text /usr/bin/subl #creating link to terminal
+
+
